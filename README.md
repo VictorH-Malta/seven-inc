@@ -20,7 +20,7 @@ OBS: os botões Home, About e Help são apenas decorativos
 
 # Sobre a minha experiência
 
-Nestes 4 dias estive imerso completamente no projeto. Ainda que não pareça, pois o que foi executado parece pouco, vi muitas aulas, artigos, exemplos dos mais variados. O conhecimento que obti tentando aprender como executar as coisas, como mexer com o framwork, me ensinaram muito e em pouco tempo. Tenho certeza que mais um pouco de tempo e já estarei dominando boa parte do que é necessário para fazer soluções mais práticas, bonitas e dinâmicas.
+Nestes 4 dias estive imerso completamente no projeto. Ainda que não pareça, pois o que foi executado parece pouco, vi muitas aulas, artigos, exemplos dos mais variados. O conhecimento que obti tentando aprender como executar as coisas, como mexer com o framework, me ensinaram muito e em pouco tempo. Tenho certeza que mais um pouco de tempo e já estarei dominando boa parte do que é necessário para fazer soluções mais práticas, bonitas e dinâmicas.
 
 Obrigado pela oportunidade!
 
