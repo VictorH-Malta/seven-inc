@@ -9,36 +9,41 @@ class App extends Component {
     this.state = {
       modelName: '',
       models: [],
-      modelProperties: [],
       name: '',
       type: '',
+      isOpen: false,
+      selectedModel: ''
     }
- 
+
   }
 
-  //função que tenta adicionar os campos name e type em modelProperties, guardando as informações
-  //função retorna no console o array ModelProperties.
-  handleAddPropertie = () => {
-    const {modelProperties} = this.state;
+  //função que adiciona propriedades e atualiza o modelo
+  handleAddProperty = () => {
+    const { models, selectedModel } = this.state;
     const newField = {
       name: this.state.name,
       type: this.state.type,
     };
-    this.setState({ modelProperties: [...this.state.modelProperties, newField], name: '', type: '' })
-    console.log(modelProperties);
+    const selectedModelOld = models.find(model => model.name === selectedModel)
+    const updatedModel = { ...selectedModelOld, properties: [...selectedModelOld.properties, newField] }
+    const updatedModelsArray = models.map(model => model.name === selectedModel ? updatedModel : model)
+
+    this.setState({ models: updatedModelsArray, name: '', type: '' })
   };
 
   //função que adiciona o modelo, ex: Employees, guardando o modelo em models[]. 
-  //função retorna models[] no console.
   handleAddModel = () => {
     const { models, modelName } = this.state;
-    this.setState({ models: [...models, modelName], modelName: '' });
-    console.log(models);
+    const newModel = {
+      name: modelName,
+      properties: [],
+    }
+    this.setState({ models: [...models, newModel], modelName: '' });
   }
 
 
   render() {
-    const { modelName, name, type } = this.state;
+    const { modelName, name, type, models, isOpen } = this.state;
 
     return (
       <>
@@ -69,24 +74,51 @@ class App extends Component {
             onChange={(event) => this.setState({ ...this.state, modelName: event.target.value })}
           />
         </div>
-        <div className="model-properties">
-          <button
-            className="create-propertie"
-            onClick={this.handleAddPropertie}>
-            Criar Propriedades
-          </button>
-          <input
-            type="text"
-            placeholder="Propriedade"
-            value={name}
-            onChange={(event) => this.setState({ ...this.state, name: event.target.value })}
-          />
-           <input
-            type="text"
-            placeholder="Tipo"
-            value={type}
-            onChange={(event) => this.setState({ ...this.state, type: event.target.value })}
-          />
+
+        {isOpen && (
+          <div className="model-properties">
+            <button
+              className="create-propertie"
+              onClick={this.handleAddProperty}>
+              Criar Propriedades
+            </button>
+            <input
+              type="text"
+              placeholder="Propriedade"
+              value={name}
+              onChange={(event) => this.setState({ ...this.state, name: event.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Tipo"
+              value={type}
+              onChange={(event) => this.setState({ ...this.state, type: event.target.value })}
+            />
+            <button onClick={() => this.setState({ ...this.state, isOpen: false, selectedModel: '', name: '', type: '' })}>Fechar</button>
+          </div>
+        )}
+
+        <div className="mostrar-modelos">
+          {models.map(model => {
+            return (
+              <div key={model.name}>
+                <p>{model.name}</p>
+
+                {model.properties.map(property => {
+                  return (
+                    <div key={property.name}>
+                      <span>Nome: {property.name}, </span>
+                      <span>Tipo: {property.type}</span>
+                    </div>
+                  )
+                }
+                )}
+                <button className="adicionar"
+                  onClick={() => this.setState({ ...this.state, isOpen: true, selectedModel: model.name })}
+                >Adicionar Propriedades</button>
+              </div>
+            )
+          })}
         </div>
       </>
     );
